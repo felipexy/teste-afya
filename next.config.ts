@@ -1,7 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: "standalone",
+
+  // Enable experimental features for better performance
+  experimental: {
+    optimizePackageImports: ["lucide-react", "recharts"],
+  },
+
+  // Image optimization configuration
+  images: {
+    domains: ["assets.coingecko.com"],
+    unoptimized: false,
+  },
 };
 
 export default nextConfig;
