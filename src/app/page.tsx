@@ -64,7 +64,7 @@ export default function Home() {
       <Background theme={resolvedTheme} />
 
       {/* Content */}
-      <div className="relative z-10">
+      <div className="relative z-10 pt-24">
         <Header
           onRefresh={handleRefresh}
           onSearchSelect={handleSearchSelect}
