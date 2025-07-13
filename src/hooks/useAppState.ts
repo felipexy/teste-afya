@@ -47,7 +47,6 @@ export function useAppState() {
    * - Resetting state after completion
    */
   const handleRefresh = async () => {
-    console.log("🔄 Refresh button clicked!");
     setIsRefreshing(true);
     try {
       await refetch();

@@ -7,13 +7,7 @@ export function useTopCryptocurrencies(limit: number = 20) {
   return useQuery({
     queryKey: ["cryptocurrencies", "top", limit],
     queryFn: async () => {
-      console.log("🌐 Making API request for top cryptocurrencies...");
       const data = await coinGeckoApi.getTopCryptocurrencies(limit);
-      console.log(
-        "✅ API request completed, got",
-        data.length,
-        "cryptocurrencies"
-      );
       return data;
     },
     staleTime: 0, // Always consider data stale - allows immediate refetch
