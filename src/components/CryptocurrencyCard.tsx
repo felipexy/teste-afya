@@ -24,8 +24,8 @@ export function CryptocurrencyCard({
 
   // Gradient overlay based on price change
   const gradientOverlay = isPositive
-    ? "before:absolute before:inset-0 before:bg-gradient-to-tl before:from-green-500/10 before:via-green-400/5 before:to-transparent before:pointer-events-none before:rounded-lg"
-    : "before:absolute before:inset-0 before:bg-gradient-to-tl before:from-red-500/10 before:via-red-400/5 before:to-transparent before:pointer-events-none before:rounded-lg";
+    ? "before:absolute before:inset-0 before:bg-gradient-to-tl before:from-green-500/8 before:via-green-400/3 before:to-transparent before:pointer-events-none before:rounded-lg"
+    : "before:absolute before:inset-0 before:bg-gradient-to-tl before:from-red-500/8 before:via-red-400/3 before:to-transparent before:pointer-events-none before:rounded-lg";
 
   return (
     <Card
@@ -37,14 +37,22 @@ export function CryptocurrencyCard({
           {/* Left section: Logo, name, symbol */}
           <div className="flex items-center space-x-4">
             <div className="relative">
-              <img
-                src={crypto.image}
-                alt={crypto.name}
-                className="w-12 h-12 rounded-full"
-                onError={(e) => {
-                  e.currentTarget.src = "/placeholder-crypto.png";
-                }}
-              />
+              <div
+                className={`w-12 h-12 rounded-full p-[1px] ${
+                  isPositive
+                    ? "bg-gradient-to-r from-green-400 to-emerald-500 shadow-lg shadow-green-500/30"
+                    : "bg-gradient-to-r from-red-400 to-pink-500 shadow-lg shadow-red-500/30"
+                }`}
+              >
+                <img
+                  src={crypto.image}
+                  alt={crypto.name}
+                  className="w-full h-full rounded-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = "/placeholder-crypto.png";
+                  }}
+                />
+              </div>
               <div className="absolute -top-1 -right-1 bg-muted text-muted-foreground text-xs px-1 py-0.5 rounded text-center min-w-[1.5rem]">
                 {crypto.market_cap_rank}
               </div>
