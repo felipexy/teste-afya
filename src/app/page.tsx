@@ -9,18 +9,6 @@ import { MainContent } from "@/components/MainContent";
 import { Footer } from "@/components/Footer";
 import { APP_CONFIG } from "@/constants/app";
 
-/**
- * Home Page Component
- *
- * Main page that displays the top 20 cryptocurrencies with real-time data.
- * Features include:
- * - Real-time cryptocurrency data from CoinGecko API
- * - Dark/Light theme support
- * - Search functionality
- * - Refresh capabilities
- * - Responsive design
- * - Loading states and error handling
- */
 export default function Home() {
   const router = useRouter();
   const {
