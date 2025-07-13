@@ -16,7 +16,6 @@ export function Header({ onRefresh, onSearchSelect, shouldSpin }: HeaderProps) {
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <TrendingUp className="h-8 w-8 text-primary" />
             <div className="flex items-center">
               <LogoTextFX text="CryptoTracker" fontSize="2rem" />
             </div>
