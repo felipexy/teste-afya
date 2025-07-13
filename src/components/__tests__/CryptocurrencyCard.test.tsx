@@ -98,8 +98,8 @@ describe("CryptocurrencyCard", () => {
 
     // Check if green gradient classes are applied
     expect(card).toHaveClass("before:bg-gradient-to-tl");
-    expect(card).toHaveClass("before:from-green-500/10");
-    expect(card).toHaveClass("before:via-green-400/5");
+    expect(card).toHaveClass("before:from-green-500/8");
+    expect(card).toHaveClass("before:via-green-400/3");
   });
 
   it("applies red gradient overlay for negative price change", () => {
@@ -113,8 +113,8 @@ describe("CryptocurrencyCard", () => {
 
     // Check if red gradient classes are applied
     expect(card).toHaveClass("before:bg-gradient-to-tl");
-    expect(card).toHaveClass("before:from-red-500/10");
-    expect(card).toHaveClass("before:via-red-400/5");
+    expect(card).toHaveClass("before:from-red-500/8");
+    expect(card).toHaveClass("before:via-red-400/3");
   });
 
   it("calls onClick handler when card is clicked", () => {
