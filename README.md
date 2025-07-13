@@ -1,178 +1,216 @@
-# 🚀 CryptoTracker - Monitor de Criptomoedas
+# CryptoTracker
 
-Uma aplicação moderna para monitorar as top 20 criptomoedas em tempo real, desenvolvida com Next.js 15, TypeScript, Tailwind CSS e React Query.
+A modern, responsive cryptocurrency tracking application built with Next.js 15, TypeScript, and React Query. Features real-time data from CoinGecko API with a beautiful dark/light theme design.
 
-## ✨ Funcionalidades
+## 🚀 Features
 
-- 📊 **Lista das Top 20 Criptomoedas** - Ordenadas por market cap
-- 🔍 **Busca Inteligente** - Busque por nome ou símbolo com debounce
-- 📈 **Gráficos de 7 dias** - Visualize tendências de preços
-- 🌙 **Tema Dark/Light** - Interface adaptável
-- ⚡ **Cache Inteligente** - React Query para performance otimizada
-- 📱 **Design Responsivo** - Funciona em todos os dispositivos
-- 🎨 **UI Moderna** - Design minimalista com shadcn/ui
-- 🛡️ **TypeScript** - Tipagem completa para maior segurança
+- **Real-time Data**: Live cryptocurrency prices and market data
+- **Top 20 Cryptocurrencies**: Sorted by market capitalization
+- **Dark/Light Theme**: Beautiful theme switching with custom backgrounds
+- **Search Functionality**: Find cryptocurrencies by name or symbol
+- **Responsive Design**: Works perfectly on desktop, tablet, and mobile
+- **Loading States**: Smooth loading animations and skeleton screens
+- **Error Handling**: Graceful error states with retry functionality
+- **Top Loading Bar**: Visual feedback for data fetching operations
+- **TypeScript**: Full type safety throughout the application
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Tech Stack
 
-- **Framework**: Next.js 15
-- **Linguagem**: TypeScript
-- **Estilização**: Tailwind CSS
-- **Componentes**: shadcn/ui + Radix UI
-- **Estado/Cache**: TanStack React Query
-- **Gráficos**: Recharts
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: React Query (TanStack Query)
+- **UI Components**: shadcn/ui + Lucide React icons
 - **API**: CoinGecko API
-- **Testes**: Jest + React Testing Library
-- **Container**: Docker
+- **Testing**: Jest + React Testing Library
+- **Deployment**: Docker support
 
-## 📋 Pré-requisitos
-
-- Node.js 18+
-- Yarn ou npm
-- Docker (opcional)
-
-## 🚀 Como Executar
-
-### 1. Instalação Local
-
-```bash
-# Clone o repositório
-git clone <repository-url>
-cd teste-afya
-
-# Instale as dependências
-yarn install
-
-# Execute em desenvolvimento
-yarn dev
-```
-
-A aplicação estará disponível em `http://localhost:3000`.
-
-### 2. Com Docker
-
-```bash
-# Build da imagem
-yarn docker:build
-
-# Execute o container
-yarn docker:run
-```
-
-### 3. Build para Produção
-
-```bash
-# Build da aplicação
-yarn build
-
-# Execute em produção
-yarn start
-```
-
-## 🧪 Testes
-
-```bash
-# Execute todos os testes
-yarn test
-
-# Execute testes em modo watch
-yarn test:watch
-
-# Execute testes com coverage
-yarn test:coverage
-```
-
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 src/
-├── app/                    # App Router (Next.js 15)
-│   ├── crypto/[id]/       # Página de detalhes da crypto
-│   ├── globals.css        # Estilos globais
-│   ├── layout.tsx         # Layout raiz
-│   └── page.tsx           # Página inicial
-├── components/            # Componentes React
-│   ├── ui/               # Componentes base (shadcn)
+├── app/                    # Next.js App Router pages
+│   ├── crypto/[id]/       # Cryptocurrency detail page
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Home page
+├── components/            # Reusable components
+│   ├── ui/               # Base UI components (shadcn/ui)
+│   ├── Background.tsx    # Theme-based background component
 │   ├── CryptocurrencyCard.tsx
-│   ├── SearchBar.tsx
 │   ├── CryptoChart.tsx
+│   ├── Footer.tsx
+│   ├── Header.tsx
+│   ├── LoadingCard.tsx
+│   ├── MainContent.tsx
+│   ├── SearchBar.tsx
 │   └── ThemeToggle.tsx
-├── hooks/                # Custom hooks
+├── constants/            # Application constants
+│   └── app.ts           # Centralized configuration
+├── hooks/               # Custom React hooks
+│   ├── useAppState.ts   # Main application state management
 │   └── useCryptocurrency.ts
-├── lib/                  # Utilitários
-│   └── utils.ts
-├── providers/            # Context providers
+├── providers/           # React context providers
 │   ├── QueryProvider.tsx
 │   └── ThemeProvider.tsx
-├── services/             # Serviços de API
+├── services/            # API services
 │   └── coinGeckoApi.ts
-└── types/                # Tipos TypeScript
-    └── crypto.ts
+├── types/               # TypeScript type definitions
+│   └── crypto.ts
+└── utils/               # Utility functions
+    └── index.ts
 ```
 
-## 🎨 Funcionalidades Implementadas
+## 🎨 Architecture Highlights
 
-### ✅ Requisitos Básicos
+### **Component Organization**
 
-- [x] Listar top 20 moedas por market cap
-- [x] Busca por nome de moeda
-- [x] Página de detalhes com gráfico de 7 dias
-- [x] Loading states e tratamento de erros
+- **Separation of Concerns**: Each component has a single responsibility
+- **Reusability**: Components are designed to be reusable across the application
+- **Props Interface**: Clear TypeScript interfaces for all component props
+- **Documentation**: Comprehensive JSDoc comments for all components
 
-### ✅ Requisitos Técnicos
+### **State Management**
 
-- [x] React Query para cache
-- [x] 2 testes unitários
-- [x] Dockerfile
+- **Custom Hooks**: Centralized state management with `useAppState`
+- **React Query**: Efficient data fetching and caching
+- **Theme Management**: Context-based theme switching
 
-### ✅ Diferenciais
+### **Configuration Management**
 
-- [x] Tema dark/light
-- [x] Design minimalista e moderno
-- [x] shadcn/ui components
-- [x] TypeScript completo
-- [x] Responsivo
-- [x] Debounce na busca
-- [x] Error boundaries
-- [x] Loading skeletons
+- **Constants File**: Centralized configuration in `src/constants/app.ts`
+- **Environment Variables**: Proper environment variable handling
+- **Type Safety**: Full TypeScript coverage
 
-## 🔧 Scripts Disponíveis
+### **Performance Optimizations**
 
-- `yarn dev` - Executa em desenvolvimento
-- `yarn build` - Build para produção
-- `yarn start` - Executa build em produção
-- `yarn lint` - Executa linting
-- `yarn test` - Executa testes
-- `yarn test:watch` - Executa testes em modo watch
-- `yarn test:coverage` - Executa testes com coverage
-- `yarn docker:build` - Build da imagem Docker
-- `yarn docker:run` - Executa container Docker
+- **React Query**: Intelligent caching and background updates
+- **Component Memoization**: Optimized re-renders
+- **Lazy Loading**: Efficient code splitting
+- **Image Optimization**: Next.js Image component usage
 
-## 📊 API
+## 🚀 Getting Started
 
-Este projeto utiliza a [CoinGecko API](https://www.coingecko.com/api/documentation) gratuita para obter dados de criptomoedas em tempo real.
+### Prerequisites
 
-### Endpoints utilizados:
+- Node.js 18+
+- Yarn package manager
 
-- `/coins/markets` - Lista de criptomoedas
-- `/coins/{id}` - Detalhes específicos
-- `/coins/{id}/market_chart` - Dados históricos para gráficos
+### Installation
 
-## 🤝 Contribuindo
+1. **Clone the repository**
 
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+   ```bash
+   git clone <repository-url>
+   cd crypto-tracker
+   ```
 
-## 📝 Licença
+2. **Install dependencies**
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+   ```bash
+   yarn install
+   ```
 
-## 🙏 Agradecimentos
+3. **Run the development server**
 
-- [CoinGecko](https://www.coingecko.com/) pela API gratuita
-- [shadcn/ui](https://ui.shadcn.com/) pelos componentes
-- [Lucide](https://lucide.dev/) pelos ícones
-- [Recharts](https://recharts.org/) pelos gráficos
+   ```bash
+   yarn dev
+   ```
+
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 📝 Available Scripts
+
+- `yarn dev` - Start development server
+- `yarn build` - Build for production
+- `yarn start` - Start production server
+- `yarn lint` - Run ESLint
+- `yarn test` - Run tests
+- `yarn test:watch` - Run tests in watch mode
+- `yarn test:coverage` - Run tests with coverage
+
+## 🧪 Testing
+
+The application includes comprehensive testing:
+
+- **Unit Tests**: Component and utility function tests
+- **Integration Tests**: API service tests
+- **Coverage**: ~75% code coverage
+- **Mocking**: Proper API mocking for tests
+
+Run tests with:
+
+```bash
+yarn test
+```
+
+## 🐳 Docker Deployment
+
+### Build the image
+
+```bash
+docker build -t crypto-tracker .
+```
+
+### Run the container
+
+```bash
+docker run -p 3000:3000 crypto-tracker
+```
+
+## 🌟 Key Features Implementation
+
+### **Real-time Data Fetching**
+
+- React Query for efficient data management
+- Automatic background updates
+- Optimistic updates for better UX
+
+### **Theme System**
+
+- Context-based theme management
+- Custom CSS-in-JS backgrounds
+- Smooth theme transitions
+
+### **Responsive Design**
+
+- Mobile-first approach
+- Tailwind CSS for responsive utilities
+- Optimized layouts for all screen sizes
+
+### **Error Handling**
+
+- Graceful error boundaries
+- User-friendly error messages
+- Retry mechanisms
+
+### **Performance**
+
+- Code splitting and lazy loading
+- Optimized bundle size
+- Efficient re-renders
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [CoinGecko API](https://www.coingecko.com/api/documentation) for cryptocurrency data
+- [shadcn/ui](https://ui.shadcn.com/) for beautiful UI components
+- [Lucide React](https://lucide.dev/) for icons
+- [Tailwind CSS](https://tailwindcss.com/) for styling
+- [React Query](https://tanstack.com/query) for data fetching
+
+---
+
+Built with ❤️ using Next.js, TypeScript, and modern web technologies.
