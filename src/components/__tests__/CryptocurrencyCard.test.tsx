@@ -87,6 +87,36 @@ describe("CryptocurrencyCard", () => {
     expect(parentElement).toBeInTheDocument();
   });
 
+  it("applies green gradient overlay for positive price change", () => {
+    render(<CryptocurrencyCard crypto={mockCrypto} />);
+
+    // Find the card element
+    const card = screen
+      .getByText("Bitcoin")
+      .closest('[class*="rounded-lg border"]');
+    expect(card).toBeInTheDocument();
+
+    // Check if green gradient classes are applied
+    expect(card).toHaveClass("before:bg-gradient-to-tl");
+    expect(card).toHaveClass("before:from-green-500/10");
+    expect(card).toHaveClass("before:via-green-400/5");
+  });
+
+  it("applies red gradient overlay for negative price change", () => {
+    render(<CryptocurrencyCard crypto={mockCryptoNegative} />);
+
+    // Find the card element
+    const card = screen
+      .getByText("Bitcoin")
+      .closest('[class*="rounded-lg border"]');
+    expect(card).toBeInTheDocument();
+
+    // Check if red gradient classes are applied
+    expect(card).toHaveClass("before:bg-gradient-to-tl");
+    expect(card).toHaveClass("before:from-red-500/10");
+    expect(card).toHaveClass("before:via-red-400/5");
+  });
+
   it("calls onClick handler when card is clicked", () => {
     const mockOnClick = jest.fn();
     render(<CryptocurrencyCard crypto={mockCrypto} onClick={mockOnClick} />);

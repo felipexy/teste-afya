@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Search, X } from "lucide-react";
+import { Search, X, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +24,12 @@ export function SearchBar({ onSelect }: SearchBarProps) {
     isLoading,
     error,
   } = useCryptocurrencySearch(debouncedQuery);
+
+  // Check if error is related to rate limiting
+  const isRateLimitError =
+    error?.message?.includes("Rate limit") ||
+    error?.message?.includes("too many requests") ||
+    error?.message?.includes("429");
 
   const handleSelect = (id: string) => {
     setQuery("");
@@ -71,8 +77,24 @@ export function SearchBar({ onSelect }: SearchBarProps) {
           )}
 
           {error && (
-            <div className="p-4 text-destructive text-sm">
-              Error searching cryptocurrencies
+            <div className="p-4">
+              {isRateLimitError ? (
+                <div className="text-center">
+                  <div className="flex justify-center mb-2">
+                    <Clock className="h-6 w-6 text-orange-500" />
+                  </div>
+                  <p className="text-destructive text-sm font-semibold mb-1">
+                    Muitas requisições
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Aguarde alguns instantes
+                  </p>
+                </div>
+              ) : (
+                <div className="text-destructive text-sm">
+                  Error searching cryptocurrencies
+                </div>
+              )}
             </div>
           )}
 

@@ -2,6 +2,7 @@ import { TrendingUp, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SearchBar } from "@/components/SearchBar";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import LogoTextFX from "./LogoTextFX";
 
 interface HeaderProps {
   onRefresh: () => void;
@@ -16,15 +17,12 @@ export function Header({ onRefresh, onSearchSelect, shouldSpin }: HeaderProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <TrendingUp className="h-8 w-8 text-primary" />
-            <div>
-              <h1 className="text-2xl font-bold">CryptoTracker</h1>
-              <p className="text-sm text-muted-foreground">
-                Track top cryptocurrency prices in real-time
-              </p>
+            <div className="flex items-center">
+              <LogoTextFX text="CryptoTracker" fontSize="2rem" />
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 cursor-pointer">
             <SearchBar onSelect={onSearchSelect} />
             <Button
               variant="outline"

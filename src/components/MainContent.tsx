@@ -1,4 +1,4 @@
-import { RefreshCw } from "lucide-react";
+import { RefreshCw, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CryptocurrencyCard } from "@/components/CryptocurrencyCard";
 import { LoadingCard, Loading } from "@/components/ui/loading";
@@ -32,6 +32,12 @@ export function MainContent({
   onRefresh,
   onCardClick,
 }: MainContentProps) {
+  // Check if error is related to rate limiting
+  const isRateLimitError =
+    error?.message?.includes("Rate limit") ||
+    error?.message?.includes("too many requests") ||
+    error?.message?.includes("429");
+
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="mb-8">
@@ -43,14 +49,36 @@ export function MainContent({
       {error && (
         <div className="text-center py-12">
           <div className="text-destructive mb-4">
-            <p className="text-lg font-semibold">
-              {ERROR_MESSAGES.LOADING_ERROR}
-            </p>
-            <p className="text-sm">{error.message}</p>
+            {isRateLimitError ? (
+              <>
+                <div className="flex justify-center mb-4">
+                  <Clock className="h-12 w-12 text-orange-500" />
+                </div>
+                <p className="text-lg font-semibold mb-2">
+                  Muitas requisições realizadas
+                </p>
+                <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                  A API do CoinGecko tem um limite de requisições por minuto.
+                  Por favor, aguarde alguns instantes antes de tentar novamente.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-lg font-semibold">
+                  {ERROR_MESSAGES.LOADING_ERROR}
+                </p>
+                <p className="text-sm">{error.message}</p>
+              </>
+            )}
           </div>
-          <Button onClick={onRefresh} variant="outline">
+          <Button
+            onClick={onRefresh}
+            variant="outline"
+            disabled={isRateLimitError}
+            className={isRateLimitError ? "opacity-50 cursor-not-allowed" : ""}
+          >
             <RefreshCw className="h-4 w-4 mr-2" />
-            Try Again
+            {isRateLimitError ? "Aguarde..." : "Try Again"}
           </Button>
         </div>
       )}

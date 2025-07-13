@@ -22,12 +22,17 @@ export function CryptocurrencyCard({
     ? "bg-green-50 dark:bg-green-900/20"
     : "bg-red-50 dark:bg-red-900/20";
 
+  // Gradient overlay based on price change
+  const gradientOverlay = isPositive
+    ? "before:absolute before:inset-0 before:bg-gradient-to-tl before:from-green-500/10 before:via-green-400/5 before:to-transparent before:pointer-events-none before:rounded-lg"
+    : "before:absolute before:inset-0 before:bg-gradient-to-tl before:from-red-500/10 before:via-red-400/5 before:to-transparent before:pointer-events-none before:rounded-lg";
+
   return (
     <Card
-      className="hover:shadow-md transition-all duration-200 cursor-pointer hover:scale-[1.02]"
+      className={`hover:shadow-md transition-all duration-200 cursor-pointer hover:scale-[1.02] relative overflow-hidden ${gradientOverlay}`}
       onClick={onClick}
     >
-      <CardContent className="p-6">
+      <CardContent className="p-6 relative z-10">
         <div className="flex items-center justify-between">
           {/* Left section: Logo, name, symbol */}
           <div className="flex items-center space-x-4">

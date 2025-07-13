@@ -4,18 +4,19 @@ import { use } from "react";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
-  ExternalLink,
   TrendingUp,
   TrendingDown,
+  Clock,
+  ExternalLink,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Loading } from "@/components/ui/loading";
+import { CryptoChart } from "@/components/CryptoChart";
 import {
   useCryptocurrencyDetail,
   useCryptocurrencyChart,
 } from "@/hooks/useCryptocurrency";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CryptoChart } from "@/components/CryptoChart";
-import { Loading } from "@/components/ui/loading";
 import { formatCurrency, formatNumber } from "@/lib/utils";
 
 interface CryptoDetailPageProps {
@@ -38,6 +39,17 @@ export default function CryptoDetailPage({ params }: CryptoDetailPageProps) {
     error: chartError,
   } = useCryptocurrencyChart(id, 7);
 
+  // Check if errors are related to rate limiting
+  const isDetailRateLimitError =
+    detailError?.message?.includes("Rate limit") ||
+    detailError?.message?.includes("too many requests") ||
+    detailError?.message?.includes("429");
+
+  const isChartRateLimitError =
+    chartError?.message?.includes("Rate limit") ||
+    chartError?.message?.includes("too many requests") ||
+    chartError?.message?.includes("429");
+
   if (isLoadingDetail) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -50,9 +62,24 @@ export default function CryptoDetailPage({ params }: CryptoDetailPageProps) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <p className="text-destructive text-lg mb-4">
-            Error loading cryptocurrency details
-          </p>
+          {isDetailRateLimitError ? (
+            <>
+              <div className="flex justify-center mb-4">
+                <Clock className="h-12 w-12 text-orange-500" />
+              </div>
+              <p className="text-lg font-semibold mb-2">
+                Muitas requisições realizadas
+              </p>
+              <p className="text-sm text-muted-foreground max-w-md mx-auto mb-4">
+                A API do CoinGecko tem um limite de requisições por minuto. Por
+                favor, aguarde alguns instantes antes de tentar novamente.
+              </p>
+            </>
+          ) : (
+            <p className="text-destructive text-lg mb-4">
+              Error loading cryptocurrency details
+            </p>
+          )}
           <Button onClick={() => router.push("/")} variant="outline">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
@@ -133,8 +160,26 @@ export default function CryptoDetailPage({ params }: CryptoDetailPageProps) {
                 <Loading text="Loading chart data..." />
               </div>
             ) : chartError ? (
-              <div className="h-80 flex items-center justify-center text-destructive">
-                Error loading chart data
+              <div className="h-80 flex items-center justify-center">
+                {isChartRateLimitError ? (
+                  <div className="text-center">
+                    <div className="flex justify-center mb-4">
+                      <Clock className="h-12 w-12 text-orange-500" />
+                    </div>
+                    <p className="text-destructive font-semibold mb-2">
+                      Muitas requisições realizadas
+                    </p>
+                    <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                      A API do CoinGecko tem um limite de requisições por
+                      minuto. O gráfico será carregado automaticamente em alguns
+                      instantes.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="text-destructive">
+                    Error loading chart data
+                  </div>
+                )}
               </div>
             ) : (
               <CryptoChart data={chartData} />
