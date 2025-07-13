@@ -8,14 +8,17 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { LoadingCard, Loading } from "@/components/ui/loading";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, TrendingUp } from "lucide-react";
+import { useState } from "react";
 
 export default function Home() {
   const router = useRouter();
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const {
     data: cryptocurrencies = [],
     isLoading,
     error,
     refetch,
+    isFetching,
   } = useTopCryptocurrencies(20);
 
   const handleCardClick = (id: string) => {
@@ -26,9 +29,18 @@ export default function Home() {
     router.push(`/crypto/${id}`);
   };
 
-  const handleRefresh = () => {
-    refetch();
+  const handleRefresh = async () => {
+    console.log("🔄 Refresh button clicked!");
+    setIsRefreshing(true);
+    try {
+      await refetch();
+    } finally {
+      // Reset the refreshing state after a short delay to show the animation
+      setTimeout(() => setIsRefreshing(false), 500);
+    }
   };
+
+  const shouldSpin = isLoading || isFetching || isRefreshing;
 
   return (
     <div className="min-h-screen bg-background">
@@ -52,10 +64,10 @@ export default function Home() {
                 variant="outline"
                 size="icon"
                 onClick={handleRefresh}
-                disabled={isLoading}
+                disabled={shouldSpin}
               >
                 <RefreshCw
-                  className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`}
+                  className={`h-4 w-4 ${shouldSpin ? "animate-spin" : ""}`}
                 />
               </Button>
               <ThemeToggle />
@@ -116,11 +128,11 @@ export default function Home() {
           <div className="flex justify-center mt-12">
             <Button
               onClick={handleRefresh}
-              disabled={isLoading}
+              disabled={shouldSpin}
               variant="outline"
               size="lg"
             >
-              {isLoading ? (
+              {shouldSpin ? (
                 <Loading size="sm" text="Refreshing..." />
               ) : (
                 <>
