@@ -80,7 +80,11 @@ export default function CryptoDetailPage({ params }: CryptoDetailPageProps) {
               Error loading cryptocurrency details
             </p>
           )}
-          <Button onClick={() => router.push("/")} variant="outline">
+          <Button
+            onClick={() => router.push("/")}
+            variant="outline"
+            className="cursor-pointer"
+          >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
           </Button>
@@ -103,7 +107,7 @@ export default function CryptoDetailPage({ params }: CryptoDetailPageProps) {
             <Button
               variant="ghost"
               onClick={() => router.push("/")}
-              className="flex items-center space-x-2"
+              className="flex items-center space-x-2 cursor-pointer"
             >
               <ArrowLeft className="h-4 w-4" />
               <span>Back to Home</span>

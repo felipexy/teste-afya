@@ -21,7 +21,7 @@ export function Header({ onRefresh, onSearchSelect, shouldSpin }: HeaderProps) {
             </div>
           </div>
 
-          <div className="flex items-center space-x-4 cursor-pointer">
+          <div className="flex items-center space-x-4">
             <SearchBar onSelect={onSearchSelect} />
             <Button
               variant="outline"
@@ -30,7 +30,9 @@ export function Header({ onRefresh, onSearchSelect, shouldSpin }: HeaderProps) {
               disabled={shouldSpin}
             >
               <RefreshCw
-                className={`h-4 w-4 ${shouldSpin ? "animate-spin" : ""}`}
+                className={`h-4 w-4 ${
+                  shouldSpin ? "animate-spin" : ""
+                } cursor-pointer`}
               />
             </Button>
             <ThemeToggle />

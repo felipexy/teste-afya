@@ -113,6 +113,7 @@ export function MainContent({
             disabled={shouldSpin}
             variant="outline"
             size="lg"
+            className="cursor-pointer"
           >
             {shouldSpin ? (
               <Loading size="sm" text={LOADING_STATES.REFRESH_TEXT} />
