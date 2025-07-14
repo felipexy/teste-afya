@@ -19,7 +19,11 @@ import {
   useCryptocurrencyDetail,
   useCryptocurrencyChart,
 } from "@/hooks/useCryptocurrency";
-import { formatCurrency, formatNumber } from "@/lib/utils";
+import {
+  formatCurrency,
+  formatNumber,
+  formatCurrencyCompact,
+} from "@/lib/utils";
 
 interface CryptoDetailPageProps {
   params: Promise<{
@@ -207,7 +211,7 @@ export default function CryptoDetailPage({ params }: CryptoDetailPageProps) {
             </CardHeader>
             <CardContent>
               <p className="text-lg sm:text-2xl font-bold">
-                {formatCurrency(crypto.market_cap)}
+                {formatCurrencyCompact(crypto.market_cap)}
               </p>
               <p className="text-xs sm:text-sm text-muted-foreground">
                 Rank #{crypto.market_cap_rank}
@@ -223,7 +227,7 @@ export default function CryptoDetailPage({ params }: CryptoDetailPageProps) {
             </CardHeader>
             <CardContent>
               <p className="text-lg sm:text-2xl font-bold">
-                {formatCurrency(crypto.total_volume)}
+                {formatCurrencyCompact(crypto.total_volume)}
               </p>
             </CardContent>
           </Card>
@@ -278,7 +282,7 @@ export default function CryptoDetailPage({ params }: CryptoDetailPageProps) {
                   {formatCurrency(crypto.ath)}
                 </p>
                 <p
-                  className={`text-xs sm:text-sm font-medium px-2 py-0.5 rounded-full ${
+                  className={`inline-flex text-xs sm:text-sm font-medium px-2 py-0.5 rounded-full ${
                     crypto.ath_change_percentage >= 0
                       ? "bg-green-600 text-white dark:bg-green-900/20 dark:text-green-400"
                       : "bg-red-600 text-white dark:bg-red-900/20 dark:text-red-400"
@@ -296,10 +300,10 @@ export default function CryptoDetailPage({ params }: CryptoDetailPageProps) {
                   {formatCurrency(crypto.atl)}
                 </p>
                 <p
-                  className={`text-xs sm:text-sm font-medium px-2 py-0.5 rounded-full ${
+                  className={`inline-flex text-xs sm:text-sm font-medium px-2 py-0.5 rounded-full ${
                     crypto.atl_change_percentage >= 0
-                      ? "bg-green-600 text-white dark:bg-green-900/20 dark:text-green-400"
-                      : "bg-red-600 text-white dark:bg-red-900/20 dark:text-red-400"
+                      ? "bg-green-600 text-white dark:bg-green-900/10 dark:text-green-400"
+                      : "bg-red-600 text-white dark:bg-red-900/10 dark:text-red-400"
                   }`}
                 >
                   {crypto.atl_change_percentage >= 0 ? "+" : ""}
