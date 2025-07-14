@@ -25,8 +25,6 @@ Este documento descreve as otimizações implementadas para melhorar a experiên
 - **Feedback visual** com `active:scale-[0.98]`
 - **Layout flexível** que evita overflow
 
-### 4. **Pull-to-Refresh**
-
 - **Funcionalidade nativa** para atualizar dados
 - **Indicador visual** com animação de rotação
 - **Threshold configurável** (80px por padrão)
@@ -91,8 +89,6 @@ xl: 1280px  /* Extra large devices */
 ```typescript
 const { isMobile, isTablet, isDesktop, isTouchDevice } = useMediaQuery();
 ```
-
-### Pull-to-Refresh
 
 - Ativa apenas em dispositivos touch
 - Threshold configurável

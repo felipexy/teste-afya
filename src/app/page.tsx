@@ -7,7 +7,6 @@ import { Background } from "@/components/Background";
 import { Header } from "@/components/Header";
 import { MainContent } from "@/components/MainContent";
 import { Footer } from "@/components/Footer";
-import { PullToRefresh } from "@/components/PullToRefresh";
 import { BottomNavigation } from "@/components/BottomNavigation";
 import { APP_CONFIG } from "@/constants/app";
 
@@ -61,16 +60,14 @@ export default function Home() {
           shouldSpin={shouldSpin}
         />
 
-        <PullToRefresh onRefresh={handleRefresh}>
-          <MainContent
-            cryptocurrencies={cryptocurrencies}
-            isLoading={isLoading}
-            error={error}
-            shouldSpin={shouldSpin}
-            onRefresh={handleRefresh}
-            onCardClick={handleCardClick}
-          />
-        </PullToRefresh>
+        <MainContent
+          cryptocurrencies={cryptocurrencies}
+          isLoading={isLoading}
+          error={error}
+          shouldSpin={shouldSpin}
+          onRefresh={handleRefresh}
+          onCardClick={handleCardClick}
+        />
 
         <div className="mt-auto">
           <Footer />
