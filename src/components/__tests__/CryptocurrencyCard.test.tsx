@@ -69,10 +69,10 @@ describe("CryptocurrencyCard", () => {
     render(<CryptocurrencyCard crypto={mockCrypto} />);
 
     const changeElement = screen.getByText("+2.27%");
-    expect(changeElement).toHaveClass("text-green-600");
+    expect(changeElement).toHaveClass("text-white");
 
     // Check for green background
-    const parentElement = changeElement.closest('[class*="bg-green-50"]');
+    const parentElement = changeElement.closest('[class*="bg-green-600"]');
     expect(parentElement).toBeInTheDocument();
   });
 
@@ -80,10 +80,10 @@ describe("CryptocurrencyCard", () => {
     render(<CryptocurrencyCard crypto={mockCryptoNegative} />);
 
     const changeElement = screen.getByText("-3.45%");
-    expect(changeElement).toHaveClass("text-red-600");
+    expect(changeElement).toHaveClass("text-white");
 
     // Check for red background
-    const parentElement = changeElement.closest('[class*="bg-red-50"]');
+    const parentElement = changeElement.closest('[class*="bg-red-600"]');
     expect(parentElement).toBeInTheDocument();
   });
 
