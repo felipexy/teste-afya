@@ -66,12 +66,12 @@ export function CryptocurrencyCard({
           </div>
 
           {/* Right section: Price and change */}
-          <div className="text-right space-y-1">
+          <div className="flex flex-col items-end space-y-1">
             <div className="font-semibold text-lg">
               {formatCurrency(crypto.current_price)}
             </div>
             <div
-              className={`flex items-center justify-end space-x-1 text-sm px-2 py-1 rounded-full ${bgChangeColor}`}
+              className={`flex items-center justify-center space-x-1 text-sm px-3 py-1 rounded-full ${bgChangeColor} w-24 min-h-[28px]`}
             >
               {isPositive ? (
                 <TrendingUp className="h-3 w-3" />

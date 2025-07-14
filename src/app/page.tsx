@@ -31,7 +31,7 @@ export default function Home() {
 
   return (
     <div
-      className={`min-h-screen w-full relative ${
+      className={`min-h-screen w-full relative flex flex-col ${
         resolvedTheme === "dark" ? "bg-black" : ""
       }`}
     >
@@ -52,7 +52,7 @@ export default function Home() {
       <Background theme={resolvedTheme} />
 
       {/* Content */}
-      <div className="relative z-10 pt-24">
+      <div className="relative z-10 pt-24 flex flex-col flex-1">
         <Header
           onRefresh={handleRefresh}
           onSearchSelect={handleSearchSelect}
@@ -68,7 +68,9 @@ export default function Home() {
           onCardClick={handleCardClick}
         />
 
-        <Footer />
+        <div className="mt-auto">
+          <Footer />
+        </div>
       </div>
     </div>
   );
