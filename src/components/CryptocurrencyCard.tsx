@@ -17,11 +17,11 @@ export function CryptocurrencyCard({
 }: CryptocurrencyCardProps) {
   const isPositive = crypto.price_change_percentage_24h >= 0;
   const changeColor = isPositive
-    ? "text-green-600 dark:text-green-400"
-    : "text-red-600 dark:text-red-400";
+    ? "text-white dark:text-green-400"
+    : "text-white dark:text-red-400";
   const bgChangeColor = isPositive
-    ? "bg-green-50 dark:bg-green-900/20"
-    : "bg-red-50 dark:bg-red-900/20";
+    ? "bg-green-600 dark:bg-green-900/10 border border-green-700 dark:border-green-800/30"
+    : "bg-red-600 dark:bg-red-900/10 border border-red-700 dark:border-red-800/30";
 
   // Gradient overlay based on price change
   const gradientOverlay = isPositive
@@ -76,14 +76,16 @@ export function CryptocurrencyCard({
               {formatCurrency(crypto.current_price)}
             </div>
             <div
-              className={`flex items-center justify-center space-x-1 text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full ${bgChangeColor} w-20 sm:w-24 min-h-[24px] sm:min-h-[28px]`}
+              className={`flex items-center justify-center space-x-1 text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full ${bgChangeColor} w-20 sm:w-24 min-h-[24px] sm:min-h-[28px] font-medium`}
             >
               {isPositive ? (
-                <TrendingUp className="h-3 w-3" />
+                <TrendingUp className={`h-3 w-3 ${changeColor}`} />
               ) : (
-                <TrendingDown className="h-3 w-3" />
+                <TrendingDown className={`h-3 w-3 ${changeColor}`} />
               )}
-              <span className={`${changeColor} text-xs sm:text-sm`}>
+              <span
+                className={`${changeColor} text-xs sm:text-sm font-semibold`}
+              >
                 {isPositive ? "+" : ""}
                 {crypto.price_change_percentage_24h.toFixed(2)}%
               </span>

@@ -132,10 +132,10 @@ export function SearchBar({ onSelect }: SearchBarProps) {
                     ${crypto.current_price.toFixed(2)}
                   </p>
                   <p
-                    className={`text-xs ${
+                    className={`text-xs font-medium px-2 py-0.5 rounded-full ${
                       crypto.price_change_percentage_24h >= 0
-                        ? "text-green-600"
-                        : "text-red-600"
+                        ? "bg-green-600 text-white dark:bg-green-900/20 dark:text-green-400"
+                        : "bg-red-600 text-white dark:bg-red-900/20 dark:text-red-400"
                     }`}
                   >
                     {crypto.price_change_percentage_24h >= 0 ? "+" : ""}
