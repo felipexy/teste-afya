@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { SearchBar } from "@/components/SearchBar";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import LogoTextFX from "./LogoTextFX";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface HeaderProps {
   onRefresh: () => void;
@@ -14,7 +13,7 @@ interface HeaderProps {
 
 export function Header({ onRefresh, onSearchSelect, shouldSpin }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { isMobile } = useMediaQuery();
+  // Removed unused isMobile variable
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
