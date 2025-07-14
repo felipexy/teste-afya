@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
 
   // Image optimization configuration
   images: {
-    domains: ["assets.coingecko.com"],
+    domains: ["assets.coingecko.com", "coin-images.coingecko.com"],
     unoptimized: false,
   },
 };
