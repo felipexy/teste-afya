@@ -29,16 +29,16 @@ export function CryptocurrencyCard({
 
   return (
     <Card
-      className={`hover:shadow-md transition-all duration-200 cursor-pointer hover:scale-[1.02] relative overflow-hidden ${gradientOverlay}`}
+      className={`hover:shadow-md transition-all duration-200 cursor-pointer hover:scale-[1.02] relative overflow-hidden ${gradientOverlay} active:scale-[0.98]`}
       onClick={onClick}
     >
-      <CardContent className="p-6 relative z-10">
+      <CardContent className="p-4 sm:p-6 relative z-10">
         <div className="flex items-center justify-between">
           {/* Left section: Logo, name, symbol */}
-          <div className="flex items-center space-x-4">
-            <div className="relative">
+          <div className="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
+            <div className="relative flex-shrink-0">
               <div
-                className={`w-12 h-12 rounded-full p-[1px] ${
+                className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full p-[1px] ${
                   isPositive
                     ? "bg-gradient-to-r from-green-400 to-emerald-500 shadow-lg shadow-green-500/30"
                     : "bg-gradient-to-r from-red-400 to-pink-500 shadow-lg shadow-red-500/30"
@@ -57,28 +57,30 @@ export function CryptocurrencyCard({
                 {crypto.market_cap_rank}
               </div>
             </div>
-            <div className="min-w-0">
-              <h3 className="font-semibold text-lg truncate">{crypto.name}</h3>
-              <p className="text-muted-foreground text-sm uppercase font-medium">
+            <div className="min-w-0 flex-1">
+              <h3 className="font-semibold text-base sm:text-lg truncate">
+                {crypto.name}
+              </h3>
+              <p className="text-muted-foreground text-xs sm:text-sm uppercase font-medium">
                 {crypto.symbol}
               </p>
             </div>
           </div>
 
           {/* Right section: Price and change */}
-          <div className="flex flex-col items-end space-y-1">
-            <div className="font-semibold text-lg">
+          <div className="flex flex-col items-end space-y-1 flex-shrink-0">
+            <div className="font-semibold text-base sm:text-lg text-right">
               {formatCurrency(crypto.current_price)}
             </div>
             <div
-              className={`flex items-center justify-center space-x-1 text-sm px-3 py-1 rounded-full ${bgChangeColor} w-24 min-h-[28px]`}
+              className={`flex items-center justify-center space-x-1 text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full ${bgChangeColor} w-20 sm:w-24 min-h-[24px] sm:min-h-[28px]`}
             >
               {isPositive ? (
                 <TrendingUp className="h-3 w-3" />
               ) : (
                 <TrendingDown className="h-3 w-3" />
               )}
-              <span className={changeColor}>
+              <span className={`${changeColor} text-xs sm:text-sm`}>
                 {isPositive ? "+" : ""}
                 {crypto.price_change_percentage_24h.toFixed(2)}%
               </span>
@@ -87,12 +89,12 @@ export function CryptocurrencyCard({
         </div>
 
         {/* Bottom section: Market cap and volume */}
-        <div className="mt-4 grid grid-cols-2 gap-4 pt-4 border-t">
+        <div className="mt-3 sm:mt-4 grid grid-cols-2 gap-3 sm:gap-4 pt-3 sm:pt-4 border-t">
           <div>
             <p className="text-xs text-muted-foreground uppercase tracking-wide">
               Market Cap
             </p>
-            <p className="text-sm font-medium">
+            <p className="text-xs sm:text-sm font-medium truncate">
               {formatCurrency(crypto.market_cap)}
             </p>
           </div>
@@ -100,7 +102,7 @@ export function CryptocurrencyCard({
             <p className="text-xs text-muted-foreground uppercase tracking-wide">
               Volume 24h
             </p>
-            <p className="text-sm font-medium">
+            <p className="text-xs sm:text-sm font-medium truncate">
               {formatCurrency(crypto.total_volume)}
             </p>
           </div>

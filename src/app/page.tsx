@@ -7,6 +7,8 @@ import { Background } from "@/components/Background";
 import { Header } from "@/components/Header";
 import { MainContent } from "@/components/MainContent";
 import { Footer } from "@/components/Footer";
+import { PullToRefresh } from "@/components/PullToRefresh";
+import { BottomNavigation } from "@/components/BottomNavigation";
 import { APP_CONFIG } from "@/constants/app";
 
 export default function Home() {
@@ -52,26 +54,31 @@ export default function Home() {
       <Background theme={resolvedTheme} />
 
       {/* Content */}
-      <div className="relative z-10 pt-24 flex flex-col flex-1">
+      <div className="relative z-10 pt-20 sm:pt-24 flex flex-col flex-1 pb-16 sm:pb-0">
         <Header
           onRefresh={handleRefresh}
           onSearchSelect={handleSearchSelect}
           shouldSpin={shouldSpin}
         />
 
-        <MainContent
-          cryptocurrencies={cryptocurrencies}
-          isLoading={isLoading}
-          error={error}
-          shouldSpin={shouldSpin}
-          onRefresh={handleRefresh}
-          onCardClick={handleCardClick}
-        />
+        <PullToRefresh onRefresh={handleRefresh}>
+          <MainContent
+            cryptocurrencies={cryptocurrencies}
+            isLoading={isLoading}
+            error={error}
+            shouldSpin={shouldSpin}
+            onRefresh={handleRefresh}
+            onCardClick={handleCardClick}
+          />
+        </PullToRefresh>
 
         <div className="mt-auto">
           <Footer />
         </div>
       </div>
+
+      {/* Bottom Navigation for Mobile */}
+      <BottomNavigation onRefresh={handleRefresh} shouldSpin={shouldSpin} />
     </div>
   );
 }

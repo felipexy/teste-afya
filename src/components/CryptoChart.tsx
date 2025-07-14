@@ -20,7 +20,7 @@ interface CryptoChartProps {
 export function CryptoChart({ data }: CryptoChartProps) {
   if (!data || data.length === 0) {
     return (
-      <div className="h-80 flex items-center justify-center text-muted-foreground">
+      <div className="h-60 sm:h-80 flex items-center justify-center text-muted-foreground text-sm sm:text-base">
         No chart data available
       </div>
     );
@@ -52,11 +52,11 @@ export function CryptoChart({ data }: CryptoChartProps) {
     if (active && payload && payload.length) {
       const data = payload[0].payload as ChartPoint;
       return (
-        <div className="bg-background border rounded-lg p-3 shadow-lg">
-          <p className="text-sm font-medium">
+        <div className="bg-background border rounded-lg p-2 sm:p-3 shadow-lg">
+          <p className="text-xs sm:text-sm font-medium">
             {format(new Date(label!), "MMM dd, yyyy")}
           </p>
-          <p className="text-lg font-bold text-primary">
+          <p className="text-base sm:text-lg font-bold text-primary">
             {formatCurrency(data.price)}
           </p>
           <div className="mt-2 space-y-1 text-xs text-muted-foreground">
@@ -70,14 +70,14 @@ export function CryptoChart({ data }: CryptoChartProps) {
   };
 
   return (
-    <div className="w-full h-80 p-4">
+    <div className="w-full h-60 sm:h-80 p-2 sm:p-4">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={data}
           margin={{
             top: 5,
-            right: 30,
-            left: 20,
+            right: 20,
+            left: 10,
             bottom: 5,
           }}
         >
@@ -91,11 +91,13 @@ export function CryptoChart({ data }: CryptoChartProps) {
             tickFormatter={formatXAxisDate}
             className="text-xs"
             stroke="hsl(var(--muted-foreground))"
+            tick={{ fontSize: 10 }}
           />
           <YAxis
             tickFormatter={(value) => `$${value.toLocaleString()}`}
             className="text-xs"
             stroke="hsl(var(--muted-foreground))"
+            tick={{ fontSize: 10 }}
           />
           <Tooltip content={<CustomTooltip />} />
           <Line
@@ -105,7 +107,7 @@ export function CryptoChart({ data }: CryptoChartProps) {
             strokeWidth={2}
             dot={false}
             activeDot={{
-              r: 4,
+              r: 3,
               stroke: lineColor,
               strokeWidth: 2,
               fill: "hsl(var(--background))",

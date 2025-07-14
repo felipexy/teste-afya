@@ -39,35 +39,39 @@ export function MainContent({
     error?.message?.includes("429");
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold mb-2">Top 20 Cryptocurrencies</h2>
-        <p className="text-muted-foreground">Sorted by market capitalization</p>
+    <main className="container mx-auto px-4 py-6 sm:py-8">
+      <div className="mb-6 sm:mb-8">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-2">
+          Top 20 Cryptocurrencies
+        </h2>
+        <p className="text-muted-foreground text-sm sm:text-base">
+          Sorted by market capitalization
+        </p>
       </div>
 
       {/* Error State */}
       {error && (
-        <div className="text-center py-12">
+        <div className="text-center py-8 sm:py-12 px-4">
           <div className="text-destructive mb-4">
             {isRateLimitError ? (
               <>
                 <div className="flex justify-center mb-4">
-                  <Clock className="h-12 w-12 text-orange-500" />
+                  <Clock className="h-10 w-10 sm:h-12 sm:w-12 text-orange-500" />
                 </div>
-                <p className="text-lg font-semibold mb-2">
+                <p className="text-base sm:text-lg font-semibold mb-2">
                   Muitas requisições realizadas
                 </p>
-                <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                <p className="text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
                   A API do CoinGecko tem um limite de requisições por minuto.
                   Por favor, aguarde alguns instantes antes de tentar novamente.
                 </p>
               </>
             ) : (
               <>
-                <p className="text-lg font-semibold">
+                <p className="text-base sm:text-lg font-semibold">
                   {ERROR_MESSAGES.LOADING_ERROR}
                 </p>
-                <p className="text-sm">{error.message}</p>
+                <p className="text-xs sm:text-sm">{error.message}</p>
               </>
             )}
           </div>
@@ -75,7 +79,9 @@ export function MainContent({
             onClick={onRefresh}
             variant="outline"
             disabled={isRateLimitError}
-            className={isRateLimitError ? "opacity-50 cursor-not-allowed" : ""}
+            className={`${
+              isRateLimitError ? "opacity-50 cursor-not-allowed" : ""
+            } w-full sm:w-auto`}
           >
             <RefreshCw className="h-4 w-4 mr-2" />
             {isRateLimitError ? "Aguarde..." : "Try Again"}
@@ -85,7 +91,7 @@ export function MainContent({
 
       {/* Loading State */}
       {isLoading && !cryptocurrencies.length && (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: LOADING_STATES.SKELETON_COUNT }).map((_, i) => (
             <LoadingCard key={i} />
           ))}
@@ -94,7 +100,7 @@ export function MainContent({
 
       {/* Cryptocurrency Grid */}
       {cryptocurrencies.length > 0 && (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {cryptocurrencies.map((crypto) => (
             <CryptocurrencyCard
               key={crypto.id}
@@ -107,13 +113,13 @@ export function MainContent({
 
       {/* Refresh Button at Bottom */}
       {cryptocurrencies.length > 0 && (
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-8 sm:mt-12 px-4">
           <Button
             onClick={onRefresh}
             disabled={shouldSpin}
             variant="outline"
             size="lg"
-            className="cursor-pointer"
+            className="cursor-pointer w-full sm:w-auto"
           >
             {shouldSpin ? (
               <Loading size="sm" text={LOADING_STATES.REFRESH_TEXT} />

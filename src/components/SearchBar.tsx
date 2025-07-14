@@ -54,7 +54,7 @@ export function SearchBar({ onSelect }: SearchBarProps) {
             setIsOpen(e.target.value.length > 0);
           }}
           onFocus={() => setIsOpen(query.length > 0)}
-          className="pl-10 pr-10"
+          className="pl-10 pr-10 h-9 sm:h-10 text-sm sm:text-base"
         />
         {query && (
           <Button
@@ -69,21 +69,21 @@ export function SearchBar({ onSelect }: SearchBarProps) {
       </div>
 
       {isOpen && (
-        <div className="absolute z-50 w-full mt-2 max-h-80 overflow-y-auto rounded-md border bg-popover text-popover-foreground shadow-md">
+        <div className="absolute z-50 w-full mt-2 max-h-60 sm:max-h-80 overflow-y-auto rounded-md border bg-popover text-popover-foreground shadow-md">
           {isLoading && (
-            <div className="p-4">
+            <div className="p-3 sm:p-4">
               <Loading text="Searching..." />
             </div>
           )}
 
           {error && (
-            <div className="p-4">
+            <div className="p-3 sm:p-4">
               {isRateLimitError ? (
                 <div className="text-center">
                   <div className="flex justify-center mb-2">
-                    <Clock className="h-6 w-6 text-orange-500" />
+                    <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-orange-500" />
                   </div>
-                  <p className="text-destructive text-sm font-semibold mb-1">
+                  <p className="text-destructive text-xs sm:text-sm font-semibold mb-1">
                     Muitas requisições
                   </p>
                   <p className="text-xs text-muted-foreground">
@@ -91,7 +91,7 @@ export function SearchBar({ onSelect }: SearchBarProps) {
                   </p>
                 </div>
               ) : (
-                <div className="text-destructive text-sm">
+                <div className="text-destructive text-xs sm:text-sm">
                   Error searching cryptocurrencies
                 </div>
               )}
@@ -99,7 +99,7 @@ export function SearchBar({ onSelect }: SearchBarProps) {
           )}
 
           {!isLoading && !error && results.length === 0 && debouncedQuery && (
-            <div className="p-4 text-muted-foreground text-sm">
+            <div className="p-3 sm:p-4 text-muted-foreground text-xs sm:text-sm">
               No cryptocurrencies found
             </div>
           )}
@@ -108,22 +108,24 @@ export function SearchBar({ onSelect }: SearchBarProps) {
             <div
               key={crypto.id}
               onClick={() => handleSelect(crypto.id)}
-              className="p-2 hover:bg-accent cursor-pointer border-b last:border-b-0"
+              className="p-2 sm:p-3 hover:bg-accent cursor-pointer border-b last:border-b-0"
             >
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2 sm:space-x-3">
                 <img
                   src={crypto.image}
                   alt={crypto.name}
-                  className="w-8 h-8 rounded-full"
+                  className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex-shrink-0"
                 />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{crypto.name}</p>
+                  <p className="text-xs sm:text-sm font-medium truncate">
+                    {crypto.name}
+                  </p>
                   <p className="text-xs text-muted-foreground uppercase">
                     {crypto.symbol}
                   </p>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm font-medium">
+                <div className="text-right flex-shrink-0">
+                  <p className="text-xs sm:text-sm font-medium">
                     ${crypto.current_price.toFixed(2)}
                   </p>
                   <p

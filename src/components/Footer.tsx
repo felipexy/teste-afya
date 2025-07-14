@@ -8,9 +8,9 @@ import { APP_CONFIG } from "@/constants/app";
  */
 export function Footer() {
   return (
-    <footer className="border-t bg-card/50 mt-16">
-      <div className="container mx-auto px-4 py-6">
-        <div className="text-center text-sm text-muted-foreground">
+    <footer className="border-t bg-card/50 mt-8 sm:mt-16">
+      <div className="container mx-auto px-4 py-4 sm:py-6">
+        <div className="text-center text-xs sm:text-sm text-muted-foreground">
           <p>
             Data provided by{" "}
             <a
