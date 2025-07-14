@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Search, X, Clock } from "lucide-react";
+import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -111,9 +112,11 @@ export function SearchBar({ onSelect }: SearchBarProps) {
               className="p-2 sm:p-3 hover:bg-accent cursor-pointer border-b last:border-b-0"
             >
               <div className="flex items-center space-x-2 sm:space-x-3">
-                <img
+                <Image
                   src={crypto.image}
                   alt={crypto.name}
+                  width={32}
+                  height={32}
                   className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex-shrink-0"
                 />
                 <div className="flex-1 min-w-0">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { RefreshCw } from "lucide-react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
@@ -23,31 +23,29 @@ export function PullToRefresh({
   const startY = useRef<number>(0);
   const currentY = useRef<number>(0);
 
-  // Only enable on mobile touch devices
-  if (!isMobile || !isTouchDevice) {
-    return <div ref={containerRef}>{children}</div>;
-  }
-
-  const handleTouchStart = (e: TouchEvent) => {
+  const handleTouchStart = useCallback((e: TouchEvent) => {
     if (containerRef.current?.scrollTop === 0) {
       startY.current = e.touches[0].clientY;
       setIsPulling(true);
     }
-  };
+  }, []);
 
-  const handleTouchMove = (e: TouchEvent) => {
-    if (!isPulling) return;
+  const handleTouchMove = useCallback(
+    (e: TouchEvent) => {
+      if (!isPulling) return;
 
-    currentY.current = e.touches[0].clientY;
-    const distance = Math.max(0, currentY.current - startY.current);
+      currentY.current = e.touches[0].clientY;
+      const distance = Math.max(0, currentY.current - startY.current);
 
-    // Only allow pulling down when at the top
-    if (containerRef.current?.scrollTop === 0) {
-      setPullDistance(distance * 0.5); // Reduce pull resistance
-    }
-  };
+      // Only allow pulling down when at the top
+      if (containerRef.current?.scrollTop === 0) {
+        setPullDistance(distance * 0.5); // Reduce pull resistance
+      }
+    },
+    [isPulling]
+  );
 
-  const handleTouchEnd = async () => {
+  const handleTouchEnd = useCallback(async () => {
     if (!isPulling) return;
 
     if (pullDistance >= threshold) {
@@ -61,11 +59,14 @@ export function PullToRefresh({
 
     setIsPulling(false);
     setPullDistance(0);
-  };
+  }, [isPulling, pullDistance, threshold, onRefresh]);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+
+    // Only enable on mobile touch devices
+    if (!isMobile || !isTouchDevice) return;
 
     container.addEventListener("touchstart", handleTouchStart, {
       passive: true,
@@ -78,7 +79,13 @@ export function PullToRefresh({
       container.removeEventListener("touchmove", handleTouchMove);
       container.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [isPulling, pullDistance, threshold]);
+  }, [
+    isMobile,
+    isTouchDevice,
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+  ]);
 
   const pullProgress = Math.min(pullDistance / threshold, 1);
   const rotation = pullProgress * 360;

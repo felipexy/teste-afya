@@ -2,6 +2,7 @@
 
 import { use } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import {
   ArrowLeft,
   TrendingUp,
@@ -121,9 +122,11 @@ export default function CryptoDetailPage({ params }: CryptoDetailPageProps) {
         {/* Crypto Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 space-y-4 sm:space-y-0">
           <div className="flex items-center space-x-3 sm:space-x-4">
-            <img
+            <Image
               src={crypto.image}
               alt={crypto.name}
+              width={64}
+              height={64}
               className="w-12 h-12 sm:w-16 sm:h-16 rounded-full"
             />
             <div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Cryptocurrency } from "@/types/crypto";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
@@ -44,9 +45,11 @@ export function CryptocurrencyCard({
                     : "bg-gradient-to-r from-red-400 to-pink-500 shadow-lg shadow-red-500/30"
                 }`}
               >
-                <img
+                <Image
                   src={crypto.image}
                   alt={crypto.name}
+                  width={48}
+                  height={48}
                   className="w-full h-full rounded-full object-cover"
                   onError={(e) => {
                     e.currentTarget.src = "/placeholder-crypto.png";
