@@ -10,7 +10,7 @@ export function useTopCryptocurrencies(limit: number = 20) {
       const data = await coinGeckoApi.getTopCryptocurrencies(limit);
       return data;
     },
-    staleTime: 0, // Always consider data stale - allows immediate refetch
+    staleTime: 0,
   });
 }
 

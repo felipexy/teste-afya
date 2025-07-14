@@ -4,18 +4,6 @@ import { useTheme } from "@/providers/ThemeProvider";
 import LoadingBar from "react-top-loading-bar";
 import { APP_CONFIG } from "@/constants/app";
 
-/**
- * Custom hook to manage application state
- *
- * This hook centralizes all the application state management including:
- * - Cryptocurrency data fetching
- * - Loading states
- * - Theme management
- * - Loading bar control
- * - Refresh functionality
- *
- * @returns Object containing all application state and handlers
- */
 export function useAppState() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { resolvedTheme } = useTheme();
@@ -38,20 +26,11 @@ export function useAppState() {
     }
   }, [isLoading, isFetching, isRefreshing]);
 
-  /**
-   * Handle refresh functionality
-   *
-   * Manages the refresh process including:
-   * - Setting loading state
-   * - Calling the refetch function
-   * - Resetting state after completion
-   */
   const handleRefresh = async () => {
     setIsRefreshing(true);
     try {
       await refetch();
     } finally {
-      // Reset the refreshing state after a short delay to show the animation
       setTimeout(() => setIsRefreshing(false), APP_CONFIG.UI.REFRESH_DELAY);
     }
   };

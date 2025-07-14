@@ -9,7 +9,7 @@ export const APP_CONFIG = {
   // API Configuration
   API: {
     CRYPTOCURRENCIES_LIMIT: 20,
-    STALE_TIME: 0, // Always consider data stale for immediate refresh
+    STALE_TIME: 0,
     RETRY_ATTEMPTS: 2,
     TIMEOUT: 10000,
   },
