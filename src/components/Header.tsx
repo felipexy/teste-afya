@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { SearchBar } from "@/components/SearchBar";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import LogoTextFX from "./LogoTextFX";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface HeaderProps {
   onRefresh: () => void;
@@ -13,6 +14,7 @@ interface HeaderProps {
 
 export function Header({ onRefresh, onSearchSelect, shouldSpin }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isMobile } = useMediaQuery();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -52,19 +54,22 @@ export function Header({ onRefresh, onSearchSelect, shouldSpin }: HeaderProps) {
 
           {/* Mobile Menu Button */}
           <div className="flex items-center space-x-2 md:hidden">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={onRefresh}
-              disabled={shouldSpin}
-              className="h-9 w-9"
-            >
-              <RefreshCw
-                className={`h-4 w-4 ${
-                  shouldSpin ? "animate-spin" : ""
-                } cursor-pointer`}
-              />
-            </Button>
+            {/* Only show refresh button on mobile if you want it visible. We will remove it. */}
+            {/* {!isMobile && (
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={onRefresh}
+                disabled={shouldSpin}
+                className="h-9 w-9"
+              >
+                <RefreshCw
+                  className={`h-4 w-4 ${
+                    shouldSpin ? "animate-spin" : ""
+                  } cursor-pointer`}
+                />
+              </Button>
+            )} */}
             <Button
               variant="outline"
               size="icon"
